@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aroma & Grão — Cafeteria artesanal</title>
+<meta name="description" content="Cafés especiais de torra própria, pães de fermentação natural e um ambiente feito para demorar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6E6C9; --surface:#FDF3DF; --ink:#2A1D15; --muted:#6B5240; --sage:#7F9A68; --sage-deep:#3F5A38; --line:#E0C8A0; --on-ink:#FDF3DF; --caramel:#D08A35; --honey:#EDBB62; --sage-soft:#D6E2BF; --shadow:0 10px 28px rgba(110,60,20,.14);
+  --serif:"Fraunces",Georgia,"Times New Roman",serif; --sans:"Space Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#1B1916;--surface:#24211D;--ink:#EFE8DA;--muted:#B3AA9A;--sage:#9DB08C;--sage-deep:#B9CBA8;--line:#3A352E;--on-ink:#1B1916;color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#1B1916;--surface:#24211D;--ink:#EFE8DA;--muted:#B3AA9A;--sage:#9DB08C;--sage-deep:#B9CBA8;--line:#3A352E;--on-ink:#1B1916;color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#251911;--surface:#31221A;--ink:#F6E6C9;--muted:#CDB594;--sage:#9DB88A;--sage-deep:#BCD3A8;--line:#4C3828;--on-ink:#251911;--caramel:#E0A458;--honey:#C9923A;--sage-soft:#2E3A28;--shadow:0 10px 28px rgba(0,0,0,.35)}}
+:root[data-theme="dark"]{--bg:#251911;--surface:#31221A;--ink:#F6E6C9;--muted:#CDB594;--sage:#9DB88A;--sage-deep:#BCD3A8;--line:#4C3828;--on-ink:#251911;--caramel:#E0A458;--honey:#C9923A;--sage-soft:#2E3A28;--shadow:0 10px 28px rgba(0,0,0,.35)}
+html{scroll-behavior:smooth;scroll-padding-top:calc(72px + env(safe-area-inset-top,0px))}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.1;margin:0;letter-spacing:-.01em}
+h2{font-size:clamp(2rem,5vw,3rem);margin-bottom:1rem}
+h3{font-size:1.25rem;font-weight:600}
+p{margin:0 0 1rem;max-width:62ch}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--sage-deep);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1100px,100% - 2.5rem);margin-inline:auto}
+section{padding:clamp(3.5rem,9vw,6.5rem) 0}
+.btn{display:inline-block;padding:.85rem 1.6rem;border-radius:999px;background:var(--ink);color:var(--on-ink);text-decoration:none;font-weight:500;border:1.5px solid var(--ink);cursor:pointer;font-family:inherit;font-size:1rem;transition:background .2s,color .2s}
+.btn:hover{background:transparent;color:var(--ink)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--on-ink)}
+
+/* Cabeçalho */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:var(--serif);font-size:1.35rem;font-weight:600;text-decoration:none}
+.logo span{color:var(--sage-deep)}
+nav ul{display:flex;gap:1.75rem;list-style:none;margin:0;padding:0}
+nav a{text-decoration:none;font-weight:500;color:var(--muted)}
+nav a:hover{color:var(--ink)}
+.menu-btn{display:none;background:none;border:1.5px solid var(--line);border-radius:10px;padding:.45rem .7rem;color:var(--ink);font:inherit;cursor:pointer}
+@media (max-width:760px){
+  .menu-btn{display:block}
+  nav{position:absolute;left:0;right:0;top:64px;background:var(--bg);border-bottom:1px solid var(--line);display:none}
+  nav.open{display:block}
+  nav ul{flex-direction:column;gap:0;padding:.5rem 1.25rem 1rem}
+  nav a{display:block;padding:.75rem 0;font-size:1.1rem}
+}
+
+/* Home */
+.hero{padding-top:clamp(2.5rem,7vw,5rem)}
+.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:3rem;align-items:center}
+.hero h1{font-size:clamp(2.8rem,8.5vw,5.6rem);margin-bottom:1.5rem}
+.hero p.lead{font-size:1.2rem;color:var(--muted)}
+.cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.75rem}
+.drip{width:100%;max-width:340px;justify-self:center}
+.drip .d{fill:var(--ink);opacity:0;animation:fall 2.6s ease-in infinite}
+.drip .d:nth-of-type(2){animation-delay:1.3s}
+@keyframes fall{0%{opacity:0;transform:translateY(0)}15%{opacity:1}80%{opacity:1;transform:translateY(62px)}100%{opacity:0;transform:translateY(66px)}}
+@media (max-width:760px){.hero-grid{grid-template-columns:1fr}.drip{max-width:220px;order:-1;justify-self:start}}
+
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem;border-top:1px solid var(--line);padding-top:2rem}
+.pillars p{color:var(--muted);margin:.4rem 0 0}
+@media (max-width:760px){.pillars{grid-template-columns:1fr;gap:1.5rem}}
+
+/* Cardápio */
+#cardapio{background:var(--surface)}
+.tabs{display:flex;gap:.5rem;overflow-x:auto;padding:.25rem 0 1rem;margin-bottom:1rem;scrollbar-width:thin}
+.tab{flex:none;padding:.6rem 1.1rem;border-radius:999px;border:1.5px solid var(--line);background:transparent;color:var(--ink);font:500 .98rem var(--sans);cursor:pointer}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
+.panel[hidden]{display:none}
+.items{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:0 3rem}
+.items li{display:grid;grid-template-columns:1fr auto;gap:.15rem 1rem;padding:1.1rem 0;border-bottom:1px solid var(--line)}
+.items strong{font-family:var(--serif);font-size:1.15rem;font-weight:600}
+.items .pr{font-weight:500;color:var(--sage-deep)}
+.items small{grid-column:1/-1;color:var(--muted);font-size:.95rem}
+.tag{display:inline-block;margin-left:.4rem;font:500 .75rem var(--sans);padding:.1rem .5rem;border-radius:999px;background:var(--sage);color:#1B1916;vertical-align:middle}
+@media (max-width:760px){.items{grid-template-columns:1fr}}
+
+/* História */
+.story{display:grid;grid-template-columns:.9fr 1.1fr;gap:3rem;align-items:start}
+.story blockquote{margin:0;font-family:var(--serif);font-size:clamp(1.7rem,4vw,2.5rem);line-height:1.25;color:var(--sage-deep)}
+.facts{display:flex;gap:2rem;flex-wrap:wrap;margin-top:1.5rem}
+.facts div{min-width:120px}
+.facts b{display:block;font:600 2rem var(--serif)}
+.facts span{color:var(--muted);font-size:.95rem}
+@media (max-width:760px){.story{grid-template-columns:1fr;gap:1.5rem}}
+
+/* Local */
+#local{background:var(--ink);color:var(--on-ink)}
+#local p,#local li{color:inherit}
+.loc{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+.hours{list-style:none;margin:0 0 1.25rem;padding:0;max-width:340px}
+.hours li{display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid rgba(247,242,232,.2)}
+#local .hours li{border-color:color-mix(in srgb,var(--on-ink) 25%,transparent)}
+.status{display:inline-flex;align-items:center;gap:.5rem;font-weight:500;margin-bottom:1rem}
+.status i{width:.65rem;height:.65rem;border-radius:50%;background:#9DB08C}
+.status.closed i{background:#B88B7A}
+.map{border-radius:18px;min-height:280px;width:100%;background:color-mix(in srgb,var(--on-ink) 12%,transparent);display:block}
+.social{display:flex;gap:1rem;flex-wrap:wrap;padding:0;list-style:none;margin:1rem 0 0}
+.social a{text-decoration:underline;text-underline-offset:4px}
+@media (max-width:760px){.loc{grid-template-columns:1fr;gap:2rem}}
+
+/* Guia de estilo */
+.swatches{display:grid;grid-template-columns:repeat(5,1fr);gap:.75rem;margin:1.5rem 0 2.5rem}
+.sw{border-radius:14px;padding:4.5rem .9rem .8rem;font-size:.88rem;line-height:1.35;border:1px solid var(--line)}
+.sw b{display:block;font-weight:700}
+.type-demo{display:grid;grid-template-columns:1fr 1fr;gap:2rem;border-top:1px solid var(--line);padding-top:1.5rem}
+.type-demo .big{font:600 2.6rem/1.1 var(--serif)}
+.type-demo .bigsans{font:500 1.5rem/1.3 var(--sans)}
+.note{color:var(--muted);font-size:.95rem}
+@media (max-width:760px){.swatches{grid-template-columns:repeat(2,1fr)}.type-demo{grid-template-columns:1fr}}
+
+footer{padding:2rem 0;border-top:1px solid var(--line);color:var(--muted);font-size:.95rem}
+/* Versão mais viva e aconchegante */
+.btn{background:var(--caramel);border-color:var(--caramel);color:#2A1D15;box-shadow:var(--shadow)}
+.btn.ghost{background:transparent;border-color:var(--ink);color:var(--ink);box-shadow:none}
+.hero{background:radial-gradient(circle at 88% 18%,color-mix(in srgb,var(--honey) 60%,transparent),transparent 46%),radial-gradient(circle at 4% 92%,var(--sage-soft),transparent 42%);padding-bottom:7rem}
+.drip{background:var(--honey);border-radius:46% 54% 42% 58%/56% 44% 56% 44%;padding:2rem 1.75rem 1.25rem;box-shadow:var(--shadow);transform:rotate(-3deg)}
+.pillars{border-top:0;padding-top:0;gap:1.25rem}
+.pillars>div{background:var(--surface);border-radius:26px;padding:1.5rem;box-shadow:var(--shadow)}
+.pillars>div:nth-child(1){background:var(--sage-soft)}
+.pillars>div:nth-child(2){background:color-mix(in srgb,var(--honey) 45%,var(--surface))}
+.pillars>div::before{display:block;font-size:2rem;margin-bottom:.4rem}
+.pillars>div:nth-child(1)::before{content:"🌱"}
+.pillars>div:nth-child(2)::before{content:"🔥"}
+.pillars>div:nth-child(3)::before{content:"🛋️"}
+#cardapio,#historia,#local,#estilo{border-radius:44px 44px 0 0;margin-top:-3.5rem;position:relative}
+#cardapio{background:var(--sage-soft)}
+#historia{background:color-mix(in srgb,var(--honey) 38%,var(--bg))}
+#historia blockquote{color:var(--ink)}
+#historia .facts b{color:var(--caramel)}
+#local h2{color:var(--honey)}
+#estilo{background:var(--bg)}
+.tab{background:var(--surface)}
+.tab[aria-selected="true"]{background:var(--sage-deep);border-color:var(--sage-deep);color:#FDF3DF}
+.items{gap:1rem 1.25rem}
+.items li{background:var(--surface);border:0;border-radius:20px;padding:1.15rem 1.35rem;box-shadow:var(--shadow)}
+.items .pr{color:var(--caramel);font-weight:700}
+.sw{box-shadow:var(--shadow);border:0}
+/* Toque futurista */
+header{background:color-mix(in srgb,var(--bg) 70%,transparent);-webkit-backdrop-filter:blur(14px) saturate(1.4);backdrop-filter:blur(14px) saturate(1.4)}
+.logo span{color:var(--caramel)}
+.hero{position:relative;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background-image:linear-gradient(color-mix(in srgb,var(--ink) 8%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--ink) 8%,transparent) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:radial-gradient(ellipse at 70% 30%,#000 10%,transparent 72%);mask-image:radial-gradient(ellipse at 70% 30%,#000 10%,transparent 72%)}
+.hero h1{background:linear-gradient(100deg,var(--ink) 35%,var(--sage-deep) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.drip{box-shadow:0 0 0 12px color-mix(in srgb,var(--honey) 22%,transparent),0 0 0 13px color-mix(in srgb,var(--caramel) 55%,transparent),0 0 70px color-mix(in srgb,var(--honey) 70%,transparent)}
+.btn{background:linear-gradient(135deg,var(--honey),var(--caramel));border-color:transparent;box-shadow:0 6px 22px color-mix(in srgb,var(--caramel) 45%,transparent)}
+.pillars>div,.items li{border:1px solid color-mix(in srgb,var(--ink) 10%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.items li{transition:transform .25s,box-shadow .25s}
+.items li:hover{transform:translateY(-3px);box-shadow:0 14px 34px color-mix(in srgb,var(--caramel) 35%,transparent)}
+.items .pr{font-variant-numeric:tabular-nums}
+.tab[aria-selected="true"]{box-shadow:0 0 18px color-mix(in srgb,var(--sage) 70%,transparent)}
+#cardapio,#historia,#local,#estilo{border-top:1px solid color-mix(in srgb,var(--on-ink) 45%,transparent);box-shadow:0 -14px 40px color-mix(in srgb,var(--ink) 9%,transparent)}
+.map{border:1px solid color-mix(in srgb,var(--honey) 60%,transparent);box-shadow:0 0 40px color-mix(in srgb,var(--honey) 28%,transparent)}
+.status i{animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--sage) 80%,transparent)}70%,100%{box-shadow:0 0 0 10px transparent}}
+@media (prefers-reduced-motion:reduce){.drip .d{animation:none;opacity:1}.status i{animation:none}.items li{transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <a class="logo" href="#inicio">Aroma <span>&amp;</span> Grão</a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" aria-label="Principal">
+      <ul>
+        <li><a href="#cardapio">Cardápio</a></li>
+        <li><a href="#historia">Nossa história</a></li>
+        <li><a href="#local">Visite-nos</a></li>
+        <li><a href="#estilo">Guia de estilo</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section id="inicio" class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <h1>Café com origem. Pausa com sentido.</h1>
+        <p class="lead">Grãos especiais de pequenos produtores, torrados aqui mesmo toda semana. Um lugar para sentar, respirar e demorar na xícara.</p>
+        <div class="cta">
+          <a class="btn" href="#cardapio">Ver o cardápio</a>
+          <a class="btn ghost" href="#local">Como chegar</a>
+        </div>
+      </div>
+      <svg class="drip" viewBox="0 0 240 300" role="img" aria-label="Ilustração de café sendo coado em um V60">
+        <path d="M40 40h160l-48 110h-64z" fill="var(--sage)"/>
+        <path d="M40 40h160" stroke="var(--ink)" stroke-width="6" stroke-linecap="round"/>
+        <rect x="104" y="150" width="32" height="14" rx="3" fill="var(--ink)"/>
+        <circle class="d" cx="120" cy="170" r="5"/>
+        <circle class="d" cx="120" cy="170" r="5"/>
+        <path d="M60 232h120l-12 56a10 10 0 0 1-10 8h-76a10 10 0 0 1-10-8z" fill="none" stroke="var(--ink)" stroke-width="6" stroke-linejoin="round"/>
+        <path d="M180 244h14a16 16 0 0 1 0 32h-18" fill="none" stroke="var(--ink)" stroke-width="6"/>
+      </svg>
+    </div>
+    <div class="pillars">
+      <div><h3>Grãos especiais</h3><p>Lotes pontuados acima de 84 pontos, comprados direto de quem planta.</p></div>
+      <div><h3>Torra própria</h3><p>Torramos em pequenos lotes. O café chega à xícara em dias, não em meses.</p></div>
+      <div><h3>Ambiente acolhedor</h3><p>Madeira, plantas e luz suave. Tem tomada, tem silêncio e tem conversa boa.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="cardapio">
+  <div class="wrap">
+    <h2>O cardápio</h2>
+    <p>Tudo feito na hora, com ingredientes frescos e de época.</p>
+    <div class="tabs" role="tablist" aria-label="Categorias do cardápio"></div>
+    <div id="panels"></div>
+  </div>
+</section>
+
+<section id="historia">
+  <div class="wrap story">
+    <blockquote>“Todo bom café começa muito antes da xícara: no solo, na colheita e nas mãos de quem cuida.”</blockquote>
+    <div>
+      <h2>Nossa história</h2>
+      <p>A Aroma &amp; Grão nasceu de uma viagem às serras produtoras de café e de uma pergunta simples: por que não conhecemos quem cultiva o que bebemos todos os dias?</p>
+      <p>Hoje trabalhamos com famílias de pequenos produtores, pagamos acima do preço de mercado e visitamos cada fazenda. Os grãos chegam em sacas retornáveis, a borra vira adubo para hortas da vizinhança e nossos copos para viagem são compostáveis.</p>
+      <div class="facts">
+        <div><b>12</b><span>famílias produtoras parceiras</span></div>
+        <div><b>100%</b><span>do café com rastreio de origem</span></div>
+        <div><b>0</b><span>copos plásticos</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="local">
+  <div class="wrap loc">
+    <div>
+      <h2>Visite-nos</h2>
+      <div class="status" id="status" role="status"><i></i><span>Verificando horário…</span></div>
+      <p>Rua das Acácias, 128, Centro<br>Alto Alegre dos Parecis, RO<br><small>(endereço de exemplo, troque pelo real)</small></p>
+      <ul class="hours">
+        <li><span>Segunda a sexta</span><span>7h às 19h</span></li>
+        <li><span>Sábado</span><span>8h às 20h</span></li>
+        <li><span>Domingo</span><span>8h às 14h</span></li>
+      </ul>
+      <ul class="social">
+        <li><a href="#" aria-label="Instagram da Aroma e Grão">Instagram @aromaegrao</a></li>
+        <li><a href="#">WhatsApp</a></li>
+        <li><a href="#">Pinterest</a></li>
+      </ul>
+    </div>
+    <svg class="map" viewBox="0 0 400 300" role="img" aria-label="Espaço reservado para o mapa">
+      <g stroke="currentColor" stroke-opacity=".35" stroke-width="10" fill="none" stroke-linecap="round">
+        <path d="M0 210h400M0 90h400M110 0v300M290 0v300M0 280L190 150l210 20"/>
+      </g>
+      <circle cx="200" cy="150" r="14" fill="#9DB08C"/><circle cx="200" cy="150" r="5" fill="#1B1916"/>
+      <text x="200" y="196" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="15" fill="currentColor">Aroma &amp; Grão</text>
+      <text x="200" y="274" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="12" fill="currentColor" fill-opacity=".7">Incorpore aqui o mapa do Google Maps</text>
+    </svg>
+  </div>
+</section>
+
+<section id="estilo">
+  <div class="wrap">
+    <h2>Guia de estilo visual</h2>
+    <p>Uma identidade de mel, folha e torra: tons quentes e vivos, verde sálvia e um marrom espresso fosco para dar peso.</p>
+    <div class="swatches">
+      <div class="sw" style="background:#F6E6C9;color:#2A1D15"><b>Creme</b>#F6E6C9<br>fundo principal</div>
+      <div class="sw" style="background:#EDBB62;color:#2A1D15"><b>Mel</b>#EDBB62<br>calor e destaque</div>
+      <div class="sw" style="background:#D08A35;color:#2A1D15"><b>Caramelo</b>#D08A35<br>botões e preços</div>
+      <div class="sw" style="background:#7F9A68;color:#2A1D15"><b>Sálvia</b>#7F9A68<br>natureza</div>
+      <div class="sw" style="background:#2A1D15;color:#FDF3DF"><b>Espresso fosco</b>#2A1D15<br>texto e contraste</div>
+    </div>
+    <div class="type-demo">
+      <div>
+        <div class="big">Fraunces</div>
+        <p class="note">Títulos e nomes de produtos. Serifada com traço orgânico, lembra rótulo artesanal.</p>
+      </div>
+      <div>
+        <div class="bigsans">Space Grotesk</div>
+        <p class="note">Textos, menus e botões. Geométrica, com um toque tecnológico e ótima leitura no celular.</p>
+      </div>
+    </div>
+    <p class="note">Princípios: cartões macios em vidro fosco, brilhos sutis, grade discreta ao fundo, ilustrações de traço simples e fotos de luz natural. Tom de voz: calmo, direto e caloroso.</p>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">© 2026 Aroma &amp; Grão. Feito com café e cuidado.</div></footer>
+
+<script>
+const MENU = [
+  {id:"especiais", nome:"Cafés especiais", itens:[
+    ["Espresso","Blend da casa, notas de chocolate e caramelo.","R$ 7"],
+    ["Cappuccino","Espresso, leite vaporizado e espuma cremosa.","R$ 13"],
+    ["Flat white","Duplo espresso com leite sedoso.","R$ 14"],
+    ["Café com laranja","Espresso, suco de laranja e raspas cítricas.","R$ 15"],
+    ["Macchiato","Espresso marcado com uma colher de espuma de leite.","R$ 9"],
+    ["Mocha de cacau","Espresso, chocolate 70% derretido e leite vaporizado.","R$ 16","novo"],
+    ["Latte de caramelo salgado","Calda caseira de caramelo com flor de sal.","R$ 16","novo"],
+    ["Latte de lavanda e mel","Floral e delicado, adoçado com mel de abelha nativa.","R$ 17","novo"],
+    ["Café com canela e cardamomo","Espresso aromatizado com especiarias, ao estilo chai.","R$ 15","novo"],
+    ["Cortado de avelã","Espresso com leite na medida e xarope de avelã tostada.","R$ 13"]]},
+  {id:"geladas", nome:"Bebidas geladas", itens:[
+    ["Cold brew","Extração a frio por 18 horas, suave e doce.","R$ 15"],
+    ["Tônica com espresso","Água tônica, gelo e espresso, refrescante.","R$ 16"],
+    ["Iced latte de baunilha","Leite, espresso e xarope caseiro de baunilha.","R$ 16"],
+    ["Limonada de hortelã","Limão siciliano e hortelã da horta.","R$ 12","vegano"],
+    ["Affogato","Sorvete de creme com uma dose de espresso por cima.","R$ 17","novo"],
+    ["Cold brew de maracujá","Cold brew com polpa de maracujá, gelo e um toque de hortelã.","R$ 17","novo"],
+    ["Iced mocha","Chocolate, espresso e leite gelado, com chantilly.","R$ 17"],
+    ["Frappé de avelã","Café batido com gelo, creme de avelã e cacau em pó.","R$ 18"],
+    ["Cold brew de coco","Cold brew com leite de coco e gelo.","R$ 16","vegano"]]},
+  {id:"metodos", nome:"Métodos de extração", itens:[
+    ["V60","Limpo e floral, destaca a acidez do grão.","R$ 16"],
+    ["Prensa francesa","Encorpado e aveludado.","R$ 15"],
+    ["Aeropress","Rápido, intenso e equilibrado.","R$ 16"],
+    ["Chemex","Delicado, para dividir em duas xícaras.","R$ 28"],
+    ["Moka","Intenso e encorpado, preparado no fogão.","R$ 14"],
+    ["Clever","Imersão com filtro: doce, limpo e fácil de beber.","R$ 16"],
+    ["Sifão","Extração a vapor e vácuo, um espetáculo na mesa.","R$ 24"],
+    ["Cold drip","Gotejamento lento a frio, com notas de frutas e flores.","R$ 19"]]},
+  {id:"acomp", nome:"Acompanhamentos", itens:[
+    ["Pão de fermentação natural","Com manteiga artesanal e geleia da estação.","R$ 14"],
+    ["Brownie de cacau 70%","Úmido, com flor de sal.","R$ 12"],
+    ["Bolo de cenoura","Cobertura de chocolate meio amargo.","R$ 11"],
+    ["Croissant de manteiga","Folhado e assado toda manhã.","R$ 13"],
+    ["Torrada de abacate","Pão de fermentação natural, abacate, limão e sementes.","R$ 22"],
+    ["Torrada com ovos mexidos","Ovos cremosos, ervas frescas e pimenta rosa.","R$ 21"],
+    ["Quiche de queijo e ervas","Massa amanteigada com recheio cremoso, servida morna.","R$ 18"],
+    ["Cookie de chocolate belga","Casquinha crocante por fora e macio por dentro.","R$ 10"],
+    ["Cheesecake de frutas vermelhas","Base crocante e calda caseira.","R$ 17"],
+    ["Pão de mel recheado","Doce de leite artesanal e cobertura de chocolate.","R$ 9"]]},
+  {id:"dieta", nome:"Veganas e sem glúten", itens:[
+    ["Cappuccino com leite de aveia","Espuma cremosa, sem lactose.","R$ 15","vegano"],
+    ["Cookie de tâmara e cacau","Sem leite, sem ovos.","R$ 10","vegano"],
+    ["Bolo de amêndoas","Feito com farinha de amêndoas.","R$ 13","sem glúten"],
+    ["Pão de queijo","Polvilho e queijo minas, quentinho.","R$ 9","sem glúten"],
+    ["Latte de coco e cardamomo","Espresso com bebida de coco e uma pitada de cardamomo.","R$ 16","vegano"],
+    ["Mocha vegano","Cacau, espresso e leite de amêndoas.","R$ 17","vegano"],
+    ["Brigadeiro vegano","Cacau 50% e leite de coco, enrolado na hora.","R$ 6","vegano"],
+    ["Torrada de grão-de-bico","Pasta de grão-de-bico, tomate assado e ervas em pão sem glúten.","R$ 19","sem glúten"],
+    ["Bolo de laranja","Farinha de arroz, suco e raspas de laranja.","R$ 12","sem glúten"]]}
+];
+const tabs=document.querySelector(".tabs"), panels=document.getElementById("panels");
+MENU.forEach((c,i)=>{
+  const b=document.createElement("button");
+  b.className="tab"; b.role="tab"; b.id="t-"+c.id; b.textContent=c.nome;
+  b.setAttribute("aria-controls","p-"+c.id); b.setAttribute("aria-selected",i===0);
+  b.onclick=()=>show(c.id); tabs.appendChild(b);
+  const p=document.createElement("div");
+  p.className="panel"; p.id="p-"+c.id; p.role="tabpanel"; p.hidden=i!==0;
+  p.setAttribute("aria-labelledby",b.id);
+  p.innerHTML='<ul class="items">'+c.itens.map(x=>
+    `<li><strong>${x[0]}${x[3]?`<span class="tag">${x[3]}</span>`:""}</strong><span class="pr">${x[2]}</span><small>${x[1]}</small></li>`).join("")+"</ul>";
+  panels.appendChild(p);
+});
+function show(id){
+  MENU.forEach(c=>{
+    document.getElementById("p-"+c.id).hidden=c.id!==id;
+    document.getElementById("t-"+c.id).setAttribute("aria-selected",c.id===id);
+  });
+}
+// Menu mobile
+const mb=document.querySelector(".menu-btn"), nav=document.getElementById("nav");
+mb.onclick=()=>{const o=nav.classList.toggle("open");mb.setAttribute("aria-expanded",o)};
+nav.addEventListener("click",e=>{if(e.target.tagName==="A"){nav.classList.remove("open");mb.setAttribute("aria-expanded","false")}});
+// Aberto agora
+(function(){
+  const H={0:[8,14],6:[8,20]}; for(let d=1;d<=5;d++)H[d]=[7,19];
+  const n=new Date(), [a,f]=H[n.getDay()], h=n.getHours()+n.getMinutes()/60;
+  const open=h>=a&&h<f, el=document.getElementById("status");
+  el.classList.toggle("closed",!open);
+  el.lastElementChild.textContent=open?`Aberto agora, fechamos às ${f}h`:"Fechado agora";
+})();
+</script>
+</body>
+</html>
