@@ -1,0 +1,35 @@
+CABEÇALHOS DE SEGURANÇA PARA O SITE AROMA & GRÃO
+Use apenas o bloco do seu tipo de hospedagem. O site precisa estar em HTTPS.
+Importante: se mudar o CSS ou o JavaScript dentro do index.html, o CSP precisa ser atualizado (os valores sha256 mudam).
+Se incluir o mapa do Google, adicione frame-src https://www.google.com ao CSP (no HTML e aqui).
+
+=== Netlify / Cloudflare Pages (arquivo _headers, na mesma pasta do index.html) ===
+/*
+  Content-Security-Policy: default-src 'none'; script-src 'sha256-mtPSyMDdzuW+8y0h9efwc8w24UJnUvjZHRGwOSo3sQ0='; style-src 'sha256-VkrtxysVqbEqUZq6yZ+P3U+SrN/B7p7iwNXLFp3WzY0=' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'; frame-ancestors 'none'
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+
+=== Apache (arquivo .htaccess, requer mod_headers) ===
+Header always set Content-Security-Policy "default-src 'none'; script-src 'sha256-mtPSyMDdzuW+8y0h9efwc8w24UJnUvjZHRGwOSo3sQ0='; style-src 'sha256-VkrtxysVqbEqUZq6yZ+P3U+SrN/B7p7iwNXLFp3WzY0=' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'; frame-ancestors 'none'"
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+Header always set X-Content-Type-Options "nosniff"
+Header always set X-Frame-Options "DENY"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+Header always set Cross-Origin-Opener-Policy "same-origin"
+Header always set Cross-Origin-Resource-Policy "same-origin"
+
+=== Nginx (dentro do bloco server) ===
+add_header Content-Security-Policy "default-src 'none'; script-src 'sha256-mtPSyMDdzuW+8y0h9efwc8w24UJnUvjZHRGwOSo3sQ0='; style-src 'sha256-VkrtxysVqbEqUZq6yZ+P3U+SrN/B7p7iwNXLFp3WzY0=' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'; frame-ancestors 'none'" always;
+add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+add_header X-Content-Type-Options "nosniff" always;
+add_header X-Frame-Options "DENY" always;
+add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+add_header Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()" always;
+add_header Cross-Origin-Opener-Policy "same-origin" always;
+add_header Cross-Origin-Resource-Policy "same-origin" always;

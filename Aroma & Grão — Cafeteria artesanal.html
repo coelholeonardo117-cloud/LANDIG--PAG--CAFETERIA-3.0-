@@ -2,11 +2,13 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-mtPSyMDdzuW+8y0h9efwc8w24UJnUvjZHRGwOSo3sQ0='; style-src 'sha256-VkrtxysVqbEqUZq6yZ+P3U+SrN/B7p7iwNXLFp3WzY0=' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Aroma & Grão — Cafeteria artesanal</title>
 <meta name="description" content="Cafés especiais de torra própria, pães de fermentação natural e um ambiente feito para demorar.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link referrerpolicy="no-referrer" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#F6E6C9; --surface:#FDF3DF; --ink:#2A1D15; --muted:#6B5240; --sage:#7F9A68; --sage-deep:#3F5A38; --line:#E0C8A0; --on-ink:#FDF3DF; --caramel:#D08A35; --honey:#EDBB62; --sage-soft:#D6E2BF; --shadow:0 10px 28px rgba(110,60,20,.14);
@@ -163,6 +165,29 @@ header{background:color-mix(in srgb,var(--bg) 70%,transparent);-webkit-backdrop-
 .status i{animation:pulse 2s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--sage) 80%,transparent)}70%,100%{box-shadow:0 0 0 10px transparent}}
 @media (prefers-reduced-motion:reduce){.drip .d{animation:none;opacity:1}.status i{animation:none}.items li{transition:none}html{scroll-behavior:auto}}
+.sw1{background:#F6E6C9;color:#2A1D15}.sw2{background:#EDBB62;color:#2A1D15}.sw3{background:#D08A35;color:#2A1D15}.sw4{background:#7F9A68;color:#2A1D15}.sw5{background:#2A1D15;color:#FDF3DF}
+/* Pedido */
+.qty{grid-column:1/-1;display:flex;align-items:center;gap:.75rem;margin-top:.5rem}
+.qty button{width:2.5rem;height:2.5rem;border-radius:50%;border:1.5px solid var(--ink);background:transparent;color:var(--ink);font:500 1.35rem/1 var(--sans);cursor:pointer;display:grid;place-items:center;padding:0}
+.qty button:hover{background:var(--ink);color:var(--on-ink)}
+.qty output{min-width:1.5rem;text-align:center;font-weight:700}
+.items li.has{outline:2px solid var(--caramel)}
+#pedido{background:var(--surface);border-radius:44px 44px 0 0;margin-top:-3.5rem;position:relative;border-top:1px solid color-mix(in srgb,var(--on-ink) 45%,transparent);box-shadow:0 -14px 40px color-mix(in srgb,var(--ink) 9%,transparent)}
+.order-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;align-items:start;margin-top:1.5rem}
+.card{background:var(--bg);border-radius:26px;padding:1.5rem;box-shadow:var(--shadow);border:1px solid color-mix(in srgb,var(--ink) 10%,transparent)}
+#resumo{list-style:none;margin:1rem 0;padding:0}
+#resumo li{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;border-bottom:1px solid var(--line)}
+.total{display:flex;justify-content:space-between;align-items:baseline;font:600 1.5rem var(--serif);padding-top:.5rem}
+.field{display:grid;gap:.4rem;margin:0 0 1rem;padding:0;border:0}
+.field label,.field legend{font-weight:500;padding:0}
+.field input[type=text],.field select,.field textarea{width:100%;padding:.8rem .95rem;border-radius:14px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:inherit}
+.radios{display:flex;gap:.6rem;flex-wrap:wrap}
+.radios label{display:flex;align-items:center;gap:.45rem;padding:.6rem 1rem;border:1.5px solid var(--line);border-radius:999px;cursor:pointer;background:var(--surface)}
+.radios input{accent-color:var(--sage-deep)}
+.msg{font-weight:700;min-height:1.5rem;margin:0 0 .5rem}
+.field[hidden],.cartbar[hidden],#vazio[hidden]{display:none}
+.cartbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(1rem + env(safe-area-inset-bottom,0px));z-index:50;padding:.85rem 1.4rem;border-radius:999px;background:var(--ink);color:var(--on-ink);text-decoration:none;font-weight:700;white-space:nowrap;box-shadow:var(--shadow)}
+@media (max-width:760px){.order-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -173,6 +198,7 @@ header{background:color-mix(in srgb,var(--bg) 70%,transparent);-webkit-backdrop-
     <nav id="nav" aria-label="Principal">
       <ul>
         <li><a href="#cardapio">Cardápio</a></li>
+        <li><a href="#pedido">Fazer pedido</a></li>
         <li><a href="#historia">Nossa história</a></li>
         <li><a href="#local">Visite-nos</a></li>
         <li><a href="#estilo">Guia de estilo</a></li>
@@ -189,7 +215,7 @@ header{background:color-mix(in srgb,var(--bg) 70%,transparent);-webkit-backdrop-
         <h1>Café com origem. Pausa com sentido.</h1>
         <p class="lead">Grãos especiais de pequenos produtores, torrados aqui mesmo toda semana. Um lugar para sentar, respirar e demorar na xícara.</p>
         <div class="cta">
-          <a class="btn" href="#cardapio">Ver o cardápio</a>
+          <a class="btn" href="#cardapio">Pedir agora</a>
           <a class="btn ghost" href="#local">Como chegar</a>
         </div>
       </div>
@@ -214,9 +240,41 @@ header{background:color-mix(in srgb,var(--bg) 70%,transparent);-webkit-backdrop-
 <section id="cardapio">
   <div class="wrap">
     <h2>O cardápio</h2>
-    <p>Tudo feito na hora, com ingredientes frescos e de época.</p>
+    <p>Tudo feito na hora, com ingredientes frescos e de época. Toque em + para montar o seu pedido.</p>
     <div class="tabs" role="tablist" aria-label="Categorias do cardápio"></div>
     <div id="panels"></div>
+  </div>
+</section>
+
+<section id="pedido">
+  <div class="wrap">
+    <h2>Faça seu pedido</h2>
+    <p>Escolha os itens no cardápio, preencha seus dados e envie tudo direto para o nosso WhatsApp.</p>
+    <div class="order-grid">
+      <div class="card">
+        <h3>Seu pedido</h3>
+        <ul id="resumo"></ul>
+        <p id="vazio" class="note">Seu pedido está vazio. Volte ao cardápio e toque em + nos itens que quiser.</p>
+        <div class="total"><span>Total</span><b id="total">R$ 0,00</b></div>
+      </div>
+      <form id="pedido-form" class="card" autocomplete="on">
+        <div class="field"><label for="nome">Seu nome</label><input type="text" id="nome" name="nome" autocomplete="name" maxlength="60" required></div>
+        <fieldset class="field"><legend>Como prefere receber?</legend>
+          <div class="radios">
+            <label><input type="radio" name="tipo" value="Retirada" checked> Retirar na loja</label>
+            <label><input type="radio" name="tipo" value="Entrega"> Entrega</label>
+          </div>
+        </fieldset>
+        <div class="field" id="campo-endereco" hidden><label for="endereco">Endereço de entrega</label><input type="text" id="endereco" name="endereco" autocomplete="street-address" maxlength="160" placeholder="Rua, número, bairro e referência"></div>
+        <div class="field"><label for="pagamento">Forma de pagamento</label>
+          <select id="pagamento" name="pagamento"><option>Pix</option><option>Cartão</option><option>Dinheiro</option></select></div>
+        <div class="field" id="campo-troco" hidden><label for="troco">Troco para quanto?</label><input type="text" id="troco" name="troco" maxlength="20" inputmode="decimal"></div>
+        <div class="field"><label for="obs">Observações (opcional)</label><textarea id="obs" name="obs" rows="3" maxlength="300" placeholder="Ex.: sem açúcar, leite de aveia…"></textarea></div>
+        <p id="msg" class="msg" role="alert"></p>
+        <button class="btn" type="submit">Enviar pedido pelo WhatsApp</button>
+        <p class="note">O WhatsApp vai abrir com o pedido pronto. É só tocar em enviar. A taxa de entrega e a confirmação são combinadas na conversa.</p>
+      </form>
+    </div>
   </div>
 </section>
 
@@ -248,9 +306,9 @@ header{background:color-mix(in srgb,var(--bg) 70%,transparent);-webkit-backdrop-
         <li><span>Domingo</span><span>8h às 14h</span></li>
       </ul>
       <ul class="social">
-        <li><a href="#" aria-label="Instagram da Aroma e Grão">Instagram @aromaegrao</a></li>
-        <li><a href="#">WhatsApp</a></li>
-        <li><a href="#">Pinterest</a></li>
+        <li><a href="#" rel="noopener noreferrer" aria-label="Instagram da Aroma e Grão">Instagram @aromaegrao</a></li>
+        <li><a href="https://wa.me/5569981224202" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+        <li><a href="#" rel="noopener noreferrer">Pinterest</a></li>
       </ul>
     </div>
     <svg class="map" viewBox="0 0 400 300" role="img" aria-label="Espaço reservado para o mapa">
@@ -269,11 +327,11 @@ header{background:color-mix(in srgb,var(--bg) 70%,transparent);-webkit-backdrop-
     <h2>Guia de estilo visual</h2>
     <p>Uma identidade de mel, folha e torra: tons quentes e vivos, verde sálvia e um marrom espresso fosco para dar peso.</p>
     <div class="swatches">
-      <div class="sw" style="background:#F6E6C9;color:#2A1D15"><b>Creme</b>#F6E6C9<br>fundo principal</div>
-      <div class="sw" style="background:#EDBB62;color:#2A1D15"><b>Mel</b>#EDBB62<br>calor e destaque</div>
-      <div class="sw" style="background:#D08A35;color:#2A1D15"><b>Caramelo</b>#D08A35<br>botões e preços</div>
-      <div class="sw" style="background:#7F9A68;color:#2A1D15"><b>Sálvia</b>#7F9A68<br>natureza</div>
-      <div class="sw" style="background:#2A1D15;color:#FDF3DF"><b>Espresso fosco</b>#2A1D15<br>texto e contraste</div>
+      <div class="sw sw1"><b>Creme</b>#F6E6C9<br>fundo principal</div>
+      <div class="sw sw2"><b>Mel</b>#EDBB62<br>calor e destaque</div>
+      <div class="sw sw3"><b>Caramelo</b>#D08A35<br>botões e preços</div>
+      <div class="sw sw4"><b>Sálvia</b>#7F9A68<br>natureza</div>
+      <div class="sw sw5"><b>Espresso fosco</b>#2A1D15<br>texto e contraste</div>
     </div>
     <div class="type-demo">
       <div>
@@ -289,10 +347,13 @@ header{background:color-mix(in srgb,var(--bg) 70%,transparent);-webkit-backdrop-
   </div>
 </section>
 </main>
+<a id="cartbar" class="cartbar" href="#pedido" hidden></a>
 
 <footer><div class="wrap">© 2026 Aroma &amp; Grão. Feito com café e cuidado.</div></footer>
 
 <script>
+"use strict";
+(function(){
 const MENU = [
   {id:"especiais", nome:"Cafés especiais", itens:[
     ["Espresso","Blend da casa, notas de chocolate e caramelo.","R$ 7"],
@@ -346,36 +407,98 @@ const MENU = [
     ["Torrada de grão-de-bico","Pasta de grão-de-bico, tomate assado e ervas em pão sem glúten.","R$ 19","sem glúten"],
     ["Bolo de laranja","Farinha de arroz, suco e raspas de laranja.","R$ 12","sem glúten"]]}
 ];
+const WA="5569981224202", cart={}, BY={}, brl=n=>n.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+MENU.forEach(c=>c.itens.forEach((x,j)=>{BY[c.id+"-"+j]={nome:x[0],preco:parseInt(x[2].replace(/\D/g,""),10)}}));
 const tabs=document.querySelector(".tabs"), panels=document.getElementById("panels");
-MENU.forEach((c,i)=>{
-  const b=document.createElement("button");
-  b.className="tab"; b.role="tab"; b.id="t-"+c.id; b.textContent=c.nome;
-  b.setAttribute("aria-controls","p-"+c.id); b.setAttribute("aria-selected",i===0);
-  b.onclick=()=>show(c.id); tabs.appendChild(b);
-  const p=document.createElement("div");
-  p.className="panel"; p.id="p-"+c.id; p.role="tabpanel"; p.hidden=i!==0;
-  p.setAttribute("aria-labelledby",b.id);
-  p.innerHTML='<ul class="items">'+c.itens.map(x=>
-    `<li><strong>${x[0]}${x[3]?`<span class="tag">${x[3]}</span>`:""}</strong><span class="pr">${x[2]}</span><small>${x[1]}</small></li>`).join("")+"</ul>";
-  panels.appendChild(p);
-});
+function el(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e}
 function show(id){
   MENU.forEach(c=>{
     document.getElementById("p-"+c.id).hidden=c.id!==id;
-    document.getElementById("t-"+c.id).setAttribute("aria-selected",c.id===id);
+    document.getElementById("t-"+c.id).setAttribute("aria-selected",String(c.id===id));
   });
 }
+MENU.forEach((c,i)=>{
+  const b=el("button","tab",c.nome);
+  b.type="button"; b.id="t-"+c.id;
+  b.setAttribute("role","tab"); b.setAttribute("aria-controls","p-"+c.id); b.setAttribute("aria-selected",String(i===0));
+  b.addEventListener("click",()=>show(c.id)); tabs.appendChild(b);
+  const p=el("div","panel"); p.id="p-"+c.id; p.setAttribute("role","tabpanel"); p.hidden=i!==0;
+  p.setAttribute("aria-labelledby",b.id);
+  const ul=el("ul","items");
+  c.itens.forEach((x,j)=>{
+    const k=c.id+"-"+j, li=el("li"), st=el("strong",null,x[0]);
+    li.dataset.k=k;
+    if(x[3]) st.appendChild(el("span","tag",x[3]));
+    const q=el("div","qty"), mn=el("button",null,"−"), pl=el("button",null,"+"), out=el("output",null,"0");
+    mn.type="button"; pl.type="button";
+    mn.setAttribute("aria-label","Diminuir "+x[0]); pl.setAttribute("aria-label","Adicionar "+x[0]);
+    mn.addEventListener("click",()=>setQty(k,(cart[k]||0)-1));
+    pl.addEventListener("click",()=>setQty(k,(cart[k]||0)+1));
+    q.append(mn,out,pl);
+    li.append(st,el("span","pr",x[2]),el("small",null,x[1]),q);
+    ul.appendChild(li);
+  });
+  p.appendChild(ul); panels.appendChild(p);
+});
 // Menu mobile
 const mb=document.querySelector(".menu-btn"), nav=document.getElementById("nav");
-mb.onclick=()=>{const o=nav.classList.toggle("open");mb.setAttribute("aria-expanded",o)};
+mb.addEventListener("click",()=>{const o=nav.classList.toggle("open");mb.setAttribute("aria-expanded",String(o))});
 nav.addEventListener("click",e=>{if(e.target.tagName==="A"){nav.classList.remove("open");mb.setAttribute("aria-expanded","false")}});
+// Pedido
+const resumo=document.getElementById("resumo"), vazio=document.getElementById("vazio"), totalEl=document.getElementById("total"),
+  bar=document.getElementById("cartbar"), msg=document.getElementById("msg"), frm=document.getElementById("pedido-form"),
+  endWrap=document.getElementById("campo-endereco"), endIn=document.getElementById("endereco"), trocoWrap=document.getElementById("campo-troco");
+let noForm=false, cnt=0;
+function setQty(k,v){
+  v=Math.max(0,Math.min(20,v));
+  if(v) cart[k]=v; else delete cart[k];
+  const li=document.querySelector('[data-k="'+k+'"]');
+  if(li){li.querySelector("output").textContent=String(v); li.classList.toggle("has",v>0)}
+  refresh();
+}
+function refresh(){
+  const ks=Object.keys(cart); let tot=0; cnt=0;
+  resumo.replaceChildren();
+  ks.forEach(k=>{
+    const it=BY[k], q=cart[k]; tot+=it.preco*q; cnt+=q;
+    const li=el("li"); li.append(el("span",null,q+"x "+it.nome),el("b",null,brl(it.preco*q))); resumo.appendChild(li);
+  });
+  vazio.hidden=ks.length>0; totalEl.textContent=brl(tot);
+  bar.textContent="Meu pedido ("+cnt+") · "+brl(tot); bar.hidden=cnt===0||noForm;
+  msg.textContent="";
+}
+new IntersectionObserver(es=>{noForm=es[0].isIntersecting; bar.hidden=cnt===0||noForm},{threshold:.15}).observe(document.getElementById("pedido"));
+frm.addEventListener("change",()=>{
+  const ent=frm.elements.tipo.value==="Entrega";
+  endWrap.hidden=!ent; endIn.required=ent;
+  trocoWrap.hidden=frm.elements.pagamento.value!=="Dinheiro";
+});
+frm.addEventListener("submit",e=>{
+  e.preventDefault();
+  const ks=Object.keys(cart);
+  if(!ks.length){msg.textContent="⚠ Adicione pelo menos um item do cardápio.";return}
+  const f=frm.elements, ent=f.tipo.value==="Entrega"; let tot=0;
+  const L=["*Novo pedido — Aroma & Grão*","","*Nome:* "+f.nome.value.trim(),"*Recebimento:* "+(ent?"Entrega":"Retirada na loja")];
+  if(ent) L.push("*Endereço:* "+f.endereco.value.trim());
+  L.push("*Pagamento:* "+f.pagamento.value);
+  if(f.pagamento.value==="Dinheiro"&&f.troco.value.trim()) L.push("*Troco para:* "+f.troco.value.trim());
+  L.push("","*Itens:*");
+  ks.forEach(k=>{const it=BY[k],q=cart[k]; tot+=it.preco*q; L.push("• "+q+"x "+it.nome+" — "+brl(it.preco*q))});
+  L.push("","*Total dos itens:* "+brl(tot)+(ent?" (sem taxa de entrega)":""));
+  if(f.obs.value.trim()) L.push("*Observações:* "+f.obs.value.trim());
+  const a=document.createElement("a");
+  a.href="https://wa.me/"+WA+"?text="+encodeURIComponent(L.join("\n"));
+  a.target="_blank"; a.rel="noopener noreferrer";
+  document.body.appendChild(a); a.click(); a.remove();
+});
 // Aberto agora
 (function(){
   const H={0:[8,14],6:[8,20]}; for(let d=1;d<=5;d++)H[d]=[7,19];
   const n=new Date(), [a,f]=H[n.getDay()], h=n.getHours()+n.getMinutes()/60;
-  const open=h>=a&&h<f, el=document.getElementById("status");
-  el.classList.toggle("closed",!open);
-  el.lastElementChild.textContent=open?`Aberto agora, fechamos às ${f}h`:"Fechado agora";
+  const open=h>=a&&h<f, s=document.getElementById("status");
+  s.classList.toggle("closed",!open);
+  s.lastElementChild.textContent=open?"Aberto agora, fechamos às "+f+"h":"Fechado agora";
+})();
 })();
 </script>
 </body>
